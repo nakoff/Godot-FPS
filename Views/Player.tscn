@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmggngwfvnedv"]
+
+[ext_resource type="Texture2D" uid="uid://dor5hp713h5tn" path="res://icon.svg" id="1_0r6yi"]
+[ext_resource type="Script" path="res://Scripts/Views/PlayerView.cs" id="1_qd2ga"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bu1em"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("BodyUp")]
+floor_block_on_wall = false
+script = ExtResource("1_qd2ga")
+BodyUp = NodePath("BodyUp")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.783372, 0, 0, 0, 0.891627, 0, 0, 0, 1, 0, 0.591128, 0)
+texture = ExtResource("1_0r6yi")
+
+[node name="BodyUp" type="Sprite3D" parent="."]
+transform = Transform3D(0.739357, 0, 0, 0, 0.794254, 0, 0, 0, 1, 0, 1.14403, 0)
+centered = false
+offset = Vector2(-64, 0)
+texture = ExtResource("1_0r6yi")
+
+[node name="BodyUp2" type="Sprite3D" parent="BodyUp"]
+transform = Transform3D(0.495312, 0, 0, 0, 0.438918, 0, 0, 0, 1, 0.584623, 0.48988, 0.0496135)
+centered = false
+offset = Vector2(-64, 0)
+texture = ExtResource("1_0r6yi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.970569, 0)
+shape = SubResource("CapsuleShape3D_bu1em")

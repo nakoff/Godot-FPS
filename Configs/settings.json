@@ -1,0 +1,11 @@
+[
+  {
+    "mysql": {
+      "server": "localhost",
+      "user": "root",
+      "password": "Local_host1",
+      "port": 3306,
+      "schema": "game"
+    }
+  }
+]

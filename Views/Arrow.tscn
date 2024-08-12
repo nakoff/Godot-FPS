@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://5ab3acpv6g6n"]
+
+[ext_resource type="Script" path="res://Scripts/Views/ArrowView.cs" id="1_lyitb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7nos0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5qcx5"]
+size = Vector3(1, 0.0793825, 0.0984081)
+
+[node name="Arrow" type="RigidBody3D"]
+mass = 0.1
+gravity_scale = 3.0
+script = ExtResource("1_lyitb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.08, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_7nos0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_5qcx5")

@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://bhjev1yiueisw"]
+
+[ext_resource type="Script" path="res://Scripts/Main.cs" id="1_oivr4"]
+[ext_resource type="Script" path="res://Scripts/ViewService.cs" id="2_83xm6"]
+[ext_resource type="PackedScene" uid="uid://cmggngwfvnedv" path="res://Views/Player.tscn" id="3_rqcac"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ad68y"]
+frequency = 0.032
+fractal_type = 3
+fractal_octaves = 1
+fractal_ping_pong_strength = 0.685
+domain_warp_enabled = true
+domain_warp_amplitude = 10.0
+domain_warp_fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lblp0"]
+as_normal_map = true
+noise = SubResource("FastNoiseLite_ad68y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28hca"]
+albedo_color = Color(0.286275, 0.337255, 0.164706, 1)
+metallic_specular = 0.0
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_lblp0")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_idmhk"]
+size = Vector2(20, 10)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_d4amt"]
+data = PackedVector3Array(10, 0, 5, -10, 0, 5, 10, 0, -5, -10, 0, 5, -10, 0, -5, 10, 0, -5)
+
+[sub_resource type="Environment" id="Environment_qavcs"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ydnno"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_65bmm"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_oivr4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5.76, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_28hca")
+mesh = SubResource("PlaneMesh_idmhk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_d4amt")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="MeshInstance3D"]
+environment = SubResource("Environment_qavcs")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.173611, 0, 8.0298, 1.82461)
+shadow_enabled = true
+omni_range = 17.1009
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.173611, -6.87496, 14.4423, -1.92907)
+shadow_enabled = true
+omni_range = 27.0497
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.445095, -3.81744)
+mesh = SubResource("BoxMesh_ydnno")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_65bmm")
+
+[node name="ViewService" type="Node" parent="."]
+script = ExtResource("2_83xm6")
+PlayerView = ExtResource("3_rqcac")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.747566, 0.664187, 0, -0.664187, 0.747566, 0, 0, 0)
